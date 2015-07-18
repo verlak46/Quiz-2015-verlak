@@ -28,9 +28,16 @@ exports.answer = function(req, res) {
 
 //GET /quizes
 exports.index = function(req, res) {
-	models.Quiz.findAll().then(
-		function(quizes) {
-			res.render('quizes/index.ejs', {quizes: quizes});	
-		}
-	).catch(function(error) {next(error);})
+	var search = "%";
+
+	if(req.query.search != undefined) {
+		search = "%" + req.query.search.trim() + "%";
+		search = search.replace(/\s+/g,"%");
+	}
+
+	models.Quiz.findAll({where:["upper(pregunta) like ?", 
+		search.toUpperCase()], order: 'pregunta ASC'}).
+	then(function(quizes) {
+		res.render('quizes/index', { quizes: quizes, errors: []});
+	}).catch(function(error) { next(error);})
 };
