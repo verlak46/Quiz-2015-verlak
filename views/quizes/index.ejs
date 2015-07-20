@@ -4,8 +4,11 @@
 	<%= quizes[i].pregunta %></a></td></tr>
 <% } %>
 </table>
-<p>
+<div align="left">
+<a href="/quizes/new"><button type="button">Crear pregunta</button></a>
+</div>
 <form method="get" action="/quizes">
 	Introduce el término de búsqueda: <input type="search" name="search"><br>
 	<input type="submit" value="Enviar">
 </form>
+
