@@ -24,14 +24,13 @@ app.use(logger('dev'));
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded());
 app.use(cookieParser('Quiz 2015'));
-app.use(session());
+app.use(session({secret:'12345678', cookie:{maxAge:120000}}));
 
 app.use(methodOverride('_method'));
 app.use(express.static(path.join(__dirname, 'public')));
 
 // Helpers dinamicos:
 app.use(function(req, res, next) {
-
   // si no existe lo inicializa
   /*if (!req.session.redir) {
     req.session.redir = '/';
